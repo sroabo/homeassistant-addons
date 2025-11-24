@@ -1,14 +1,22 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base:14.0.3
+
+# Utilise l'image de base Home Assistant (adaptée automatiquement à l'architecture)
+ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base:latest
 FROM ${BUILD_FROM}
 
-# Installer Node.js et npm
-RUN apk add --no-cache nodejs npm
+# Définir la locale
+ENV LANG C.UTF-8
 
-# Installer evohome2mqtt globalement
-RUN npm install -g evohome2mqtt
+# 👉 Installe les dépendances nécessaires (exemple pour Python)
+# Si ton bridge Evohome2MQTT est en Python, décommente ces lignes :
+# RUN apk add --no-cache python3 py3-pip
+# COPY requirements.txt /tmp/
+# RUN pip3 install --no-cache-dir -r /tmp/requirements.txt
 
-# Copier le script de démarrage
-COPY run.sh /run.sh
-RUN chmod +x /run.sh
+# Copie la structure rootfs (incluant /etc/services.d/evohome/run)
+COPY rootfs/ /
 
-CMD [ "/run.sh" ]
+# Rends le script exécutable
+RUN chmod +x /etc/services.d/evohome/run
+
+# IMPORTANT : s6 doit être PID 1
+CMD ["/init"]
