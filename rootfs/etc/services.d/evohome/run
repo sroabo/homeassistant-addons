@@ -1,1 +1,20 @@
 
+#!/usr/bin/with-contenv bash
+set -e
+
+# Récupère les options définies dans config.json
+MQTT_HOST="${mqtt_host}"
+MQTT_PORT="${mqtt_port}"
+MQTT_USER="${username}"
+MQTT_PASS="${password}"
+
+echo "[evohome2mqtt] Starting..."
+echo "[evohome2mqtt] MQTT host: ${MQTT_HOST}, port: ${MQTT_PORT}"
+
+# 👉 Remplace la commande ci-dessous par celle qui lance ton bridge Evohome2MQTT
+python3 /usr/local/bin/evohome2mqtt.py \
+  --mqtt-host "${MQTT_HOST}" \
+  --mqtt-port "${MQTT_PORT}" \
+  --mqtt-user "${MQTT_USER}" \
+  --mqtt-pass "${MQTT_PASS}"
+
