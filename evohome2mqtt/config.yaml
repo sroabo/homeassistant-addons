@@ -1,1 +1,22 @@
 
+name: "Evohome2MQTT"
+version: "1.1.2"
+slug: "evohome2mqtt"
+description: "Bridge Evohome ↔ MQTT"
+startup: services
+boot: auto
+options:
+  evohome_username: ""
+  evohome_password: ""
+  mqtt_host: ""
+  mqtt_port: 1883
+  mqtt_username: ""
+  mqtt_password: ""
+schema:
+  evohome_username: str
+  evohome_password: str
+  mqtt_host: str
+  mqtt_port: int
+  mqtt_username: str
+  mqtt_password: str
+
