@@ -1,20 +1,18 @@
 
-#!/usr/bin/with-contenv bash
-set -e
+#!/usr/bin/with-contenv bashio
 
-# Récupère les options définies dans config.json
-MQTT_HOST="${mqtt_host}"
-MQTT_PORT="${mqtt_port}"
-MQTT_USER="${username}"
-MQTT_PASS="${password}"
+EVOHOME_USER=$(bashio::config 'evohome_username')
+EVOHOME_PASS=$(bashio::config 'evohome_password')
+MQTT_HOST=$(bashio::config 'mqtt_host')
+MQTT_PORT=$(bashio::config 'mqtt_port')
+MQTT_USER=$(bashio::config 'mqtt_username')
+MQTT_PASS=$(bashio::config 'mqtt_password')
 
-echo "[evohome2mqtt] Starting..."
-echo "[evohome2mqtt] MQTT host: ${MQTT_HOST}, port: ${MQTT_PORT}"
-
-# 👉 Remplace la commande ci-dessous par celle qui lance ton bridge Evohome2MQTT
-python3 /usr/local/bin/evohome2mqtt.py \
-  --mqtt-host "${MQTT_HOST}" \
-  --mqtt-port "${MQTT_PORT}" \
-  --mqtt-user "${MQTT_USER}" \
-  --mqtt-pass "${MQTT_PASS}"
-
+echo "Starting evohome2mqtt..."
+exec node /app/index.js \
+  --evohome-username "$EVOHOME_USER" \
+  --evohome-password "$EVOHOME_PASS" \
+  --mqtt-host "$MQTT_HOST" \
+  --mqtt-port "$MQTT_PORT" \
+  --mqtt-username "$MQTT_USER" \
+  --mqtt-password "$MQTT_PASS"
