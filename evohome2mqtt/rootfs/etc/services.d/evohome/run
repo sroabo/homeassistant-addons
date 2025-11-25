@@ -9,7 +9,7 @@ MQTT_USER=$(bashio::config 'mqtt_username')
 MQTT_PASS=$(bashio::config 'mqtt_password')
 
 echo "Starting evohome2mqtt..."
-exec node /app/index.js \
+exec evohome2mqtt \
   --evohome-username "$EVOHOME_USER" \
   --evohome-password "$EVOHOME_PASS" \
   --mqtt-host "$MQTT_HOST" \
