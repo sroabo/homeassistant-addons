@@ -1,5 +1,6 @@
 
 #!/usr/bin/with-contenv bashio
+bashio::log.info "Starting evohome2mqtt with debug mode..."
 
 EVOHOME_USER=$(bashio::config 'evohome_username')
 EVOHOME_PASS=$(bashio::config 'evohome_password')
@@ -8,12 +9,13 @@ MQTT_PORT=$(bashio::config 'mqtt_port')
 MQTT_USER=$(bashio::config 'mqtt_username')
 MQTT_PASS=$(bashio::config 'mqtt_password')
 
-echo "Starting evohome2mqtt..."
+bashio::log.info "Config: evohome_user=$EVOHOME_USER mqtt_host=$MQTT_HOST mqtt_port=$MQTT_PORT"
+
 exec evohome2mqtt \
   --evohome-username "$EVOHOME_USER" \
   --evohome-password "$EVOHOME_PASS" \
   --mqtt-host "$MQTT_HOST" \
   --mqtt-port "$MQTT_PORT" \
   --mqtt-username "$MQTT_USER" \
-  --mqtt-password "$MQTT_PASS"
-
+  --mqtt-password "$MQTT_PASS" \
+  --debug
